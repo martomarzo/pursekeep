@@ -389,3 +389,13 @@ Next for the Android app: Companion step 2: biometric lock + embedded web app (P
 3. **Income tracking depth** — just "income" transactions for v1; salary schedules only if a real need appears.
 4. ~~Budget style~~ **Answered: simple monthly caps per category.** Envelope/YNAB-style rejected as too big a build.
 5. ~~History import~~ **Answered: yes — Revolut, Wise, Itaú (PY), Santander (AR).** Drove the new Phase 1.5 bank-import phase with per-bank profiles.
+
+### Android companion — follow-ups deferred at the 2026-09-22 merge
+From the per-task and final reviews; none affects correctness of v0.1.0.
+- Outbox: clear pending rows on explicit unpair (not on a 401), run expiry/prune before the pairing check; a "Retry now" that cancels the backoff; log the capture title in `sent` events.
+- Room: enable schema export (`room.schemaLocation`) and commit `schemas/` before the first schema change.
+- CI: `Print APK signer` step should `set -o pipefail` and drop `|| true` so a broken signature fails the job.
+- UI polish: friendlier scanner-cancel handling (currently silent), TalkBack labels on the Apps switches, mlkit `DEPENDENCIES` meta-data before any Play listing, replace `@Suppress("InvalidFragmentVersionForActivityResult")` with an explicit androidx.fragment floor.
+- Gradle cosmetics: merge the two `android {}` blocks in `app/build.gradle.kts`; drop the unused `kotlin-android` alias.
+- Web: open the GitHub release link in a new tab; `pairingQrSvg` returns an unused `json`; minify/shrink the APK (28 MB) once R8 rules for kotlinx.serialization are added.
+- Real-device watch items: does Google Wallet post an amount-less notification that updates later (extra `unparsed` rows)? Does the ML Kit scanner module download over tailnet-only Wi-Fi?
