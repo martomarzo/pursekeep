@@ -2,6 +2,7 @@ name: CI
 
 on:
   push:
+    tags-ignore: ["android-v*"]
     paths-ignore: ["android/**", ".github/workflows/android.yaml"]
   pull_request:
     paths-ignore: ["android/**", ".github/workflows/android.yaml"]
