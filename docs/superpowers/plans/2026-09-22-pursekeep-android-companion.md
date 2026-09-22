@@ -6,14 +6,14 @@
 
 **Architecture:** Native Kotlin app in `android/` with four isolated units — `CaptureExtractor` (pure), Room outbox + WorkManager flusher, `CaptureApi` (OkHttp + pure response classifier), Compose UI over a ViewModel — talking to the unchanged capture endpoint. Server side adds migration 0005 (`wallet_devices.client_version`), a QR on the Devices page, and contract fixtures shared by vitest and Kotlin unit tests.
 
-**Tech Stack:** Kotlin 2.3.21, AGP 8.13.2, Gradle 8.14.5, JDK 17, Compose BOM 2026.09.00 + Material3, Room 2.8.5 (KSP 2.3.12), WorkManager 2.11.2, DataStore 1.2.1, OkHttp 5.5.0, kotlinx.serialization 1.11.0, play-services-code-scanner 16.1.0, JUnit 4, Robolectric 4.17. Server: Next.js 16 / Drizzle / zod 4 / vitest, `qrcode` 1.5.4.
+**Tech Stack:** Kotlin 2.3.21, AGP 9.4.1 (ruling 2026-09-22: AndroidX 2026 libs require AGP ≥ 9.1; AGP built-in Kotlin, no `kotlin-android` plugin; compileSdk 37 per AAR metadata), Gradle 9.7.1, JDK 17, Compose BOM 2026.09.00 + Material3, Room 2.8.5 (KSP 2.3.12), WorkManager 2.11.2, DataStore 1.2.1, OkHttp 5.5.0, kotlinx.serialization 1.11.0, play-services-code-scanner 16.1.0, JUnit 4, Robolectric 4.17. Server: Next.js 16 / Drizzle / zod 4 / vitest, `qrcode` 1.5.4.
 
 **Spec:** `docs/superpowers/specs/2026-09-22-pursekeep-android-companion-design.md`
 
 ## Global Constraints
 
 - Application id **`app.pursekeep`**, namespace `app.pursekeep`; never change.
-- `minSdk = 33`, `targetSdk = 35`, `compileSdk = 35`; JDK 17; never `QUERY_ALL_PACKAGES`.
+- `minSdk = 33`, `targetSdk = 35`, `compileSdk = 37` (as built; AndroidX 2026 AARs require it); JDK 17; never `QUERY_ALL_PACKAGES`.
 - Release APKs must be signed with the user's keystore `~/.pursekeep/release.jks` (alias `pursekeep`) locally and via CI secrets; debug fallback only with a loud warning.
 - Wire payload for Android is exactly `{kind:"android_notification", app, title, text, postedAt}`; `title` ≤ 2000 chars, `text` ≤ 4000, `app` ≤ 200, `postedAt` ISO-8601 with offset.
 - Headers on every capture request: `Authorization: Bearer <token>`, `Content-Type: application/json`, `X-PurseKeep-Client: android/<versionName>+<versionCode>`, `User-Agent: PurseKeep-Android/<versionName>`.
@@ -154,6 +154,8 @@ org.gradle.caching=true
 org.gradle.configuration-cache=true
 android.useAndroidX=true
 android.nonTransitiveRClass=true
+# AGP 9 ships built-in Kotlin; keep the standard Kotlin Gradle plugin (KSP/serialization/compose plugins as planned).
+android.builtInKotlin=false
 kotlin.code.style=official
 ```
 
@@ -174,7 +176,7 @@ keyPassword=change-me
 `android/gradle/libs.versions.toml`:
 ```toml
 [versions]
-agp = "8.13.2"
+agp = "9.4.1"
 kotlin = "2.3.21"
 ksp = "2.3.12"
 composeBom = "2026.09.00"
@@ -502,8 +504,8 @@ class PurseKeepApp : Application()
 cd /home/martomarzo/code/11_money-maker/android
 export JAVA_HOME=~/.local/android-toolchain/jdk17 ANDROID_HOME=~/.local/android-toolchain/sdk PATH=~/.local/android-toolchain/jdk17/bin:~/.local/android-toolchain/sdk/platform-tools:$PATH
 # one-off: obtain a gradle distribution to create the wrapper
-curl -sSL -o /tmp/gradle.zip https://services.gradle.org/distributions/gradle-8.14.5-bin.zip && mkdir -p ~/.local/android-toolchain/gradle && unzip -q -o /tmp/gradle.zip -d ~/.local/android-toolchain/gradle
-~/.local/android-toolchain/gradle/gradle-8.14.5/bin/gradle wrapper --gradle-version 8.14.5 --distribution-type bin
+curl -sSL -o /tmp/gradle.zip https://services.gradle.org/distributions/gradle-9.7.1-bin.zip && mkdir -p ~/.local/android-toolchain/gradle && unzip -q -o /tmp/gradle.zip -d ~/.local/android-toolchain/gradle
+~/.local/android-toolchain/gradle/gradle-9.7.1/bin/gradle wrapper --gradle-version 9.7.1 --distribution-type bin
 ./gradlew --no-daemon :app:assembleRelease
 ```
 Expected: `BUILD SUCCESSFUL`; APK at `app/build/outputs/apk/release/app-release.apk`; no "NO RELEASE KEYSTORE" warning.
