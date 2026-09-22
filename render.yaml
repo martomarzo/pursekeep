@@ -45,6 +45,9 @@ databases:
     plan: basic-256mb
     region: frankfurt
     postgresMajorVersion: "16"
-    # Internal-only by default. Add your IP temporarily for the one-time
-    # restore of the tailnet dump, then remove it again.
-    ipAllowList: []
+    # Reachable from the internet (password-protected) so pg_dump/pg_restore
+    # and local tools work without maintaining an IP list — user's decision
+    # 2026-09-22. Set to [] to make it private-network only.
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: everywhere
