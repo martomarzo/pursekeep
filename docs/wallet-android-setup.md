@@ -8,7 +8,8 @@
    device (e.g. "Pixel") — a QR code appears.
 3. In the app tap **Pair this phone → Scan QR code**. The app immediately
    sends a test capture; it shows up under **Captured payments** as
-   *Needs account* (dismiss it).
+   *Needs account* (dismiss it). The app then opens PurseKeep itself; the
+   capture settings are behind the gear icon.
 4. Tap **Grant notification access** and enable PurseKeep in the system list.
    Optionally exempt it from battery optimisation.
 5. Pay with a card. Within seconds the purchase is in your transactions (if

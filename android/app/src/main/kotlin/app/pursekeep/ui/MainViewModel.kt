@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-enum class Screen { Home, Pairing, Apps }
+enum class Screen { Home, Pairing, Apps, Web }
 
 data class UiState(
     val pairing: Pairing? = null,
@@ -42,7 +42,7 @@ data class UiState(
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val app = application as PurseKeepApp
     private val system = MutableStateFlow(Triple(false, false, null as String?)) // access, battery, updateTag
-    private val local = MutableStateFlow(Pair(Screen.Home, null as String?))     // screen, pairingError
+    private val local = MutableStateFlow(Pair(null as Screen?, null as String?)) // screen (null = automatic), pairingError
 
     val state: StateFlow<UiState> = combine(
         app.settings.pairing, app.settings.pairingBroken, app.settings.serverUrl,
@@ -52,13 +52,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     ) { values ->
         @Suppress("UNCHECKED_CAST")
         val sys = values[8] as Triple<Boolean, Boolean, String?>
-        val loc = values[9] as Pair<Screen, String?>
+        val loc = values[9] as Pair<Screen?, String?>
+        val pairing = values[0] as Pairing?
         UiState(
-            pairing = values[0] as Pairing?, pairingBroken = values[1] as Boolean, serverUrl = values[2] as String?,
+            pairing = pairing, pairingBroken = values[1] as Boolean, serverUrl = values[2] as String?,
             enabled = values[3] as Set<String>, custom = values[4] as Set<String>,
             pending = values[5] as Int, events = values[6] as List<EventEntry>, lastSentAt = values[7] as Long?,
             notificationAccess = sys.first, batteryExempt = sys.second, updateTag = sys.third,
-            pairingError = loc.second, screen = loc.first,
+            pairingError = loc.second, screen = loc.first ?: if (pairing != null) Screen.Web else Screen.Home,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), UiState())
 
@@ -70,6 +71,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun go(screen: Screen) { local.value = Pair(screen, null) }
+    /** Clears any explicit screen override so the automatic (paired → Web, else Home) choice applies again. */
+    fun goAuto() { local.value = Pair(null, null) }
     fun pairFailed(message: String) { local.value = Pair(Screen.Pairing, message) }
 
     fun pairManual(url: String, token: String) = pairWith(PairingParser.manual(url, token))
@@ -82,12 +85,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 app.settings.pair(p.url, p.token, android.os.Build.MODEL)
                 app.captures.log("info", "Paired with ${p.url}")
                 app.captures.sendTest()
-                local.value = Pair(Screen.Home, null)
+                goAuto()
             }
         }
     }
 
-    fun unpair() = viewModelScope.launch { app.settings.unpair(); app.captures.log("info", "Unpaired") }
+    fun unpair() = viewModelScope.launch { app.settings.unpair(); app.captures.log("info", "Unpaired"); goAuto() }
     fun sendTest() = viewModelScope.launch { app.captures.sendTest() }
     fun setPackageEnabled(pkg: String, on: Boolean) = viewModelScope.launch { app.settings.setPackageEnabled(pkg, on) }
     fun addCustomPackage(pkg: String) = viewModelScope.launch { if (pkg.isNotBlank()) app.settings.addCustomPackage(pkg.trim()) }

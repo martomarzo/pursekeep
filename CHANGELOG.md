@@ -26,8 +26,12 @@ what you can do or how your data is organised.
 - Devices show which app version they run; revoking a device makes the phone
   tell you it needs pairing again.
 - The old "experimental" notes and the MacroDroid instructions are gone.
+- The app is now a full PurseKeep client: after pairing it opens the web app
+  inside, keeps you logged in, and the capture settings sit behind a gear
+  icon.
 
 ### Android app (versions)
+- 0.2.0 — the app now shows PurseKeep itself inside the app once paired; the companion status and settings live behind the gear icon. Back navigates inside the web app.
 - 0.1.0 — first release: notification capture, offline queue, QR pairing, update banner.
 
 ## 2026-08-25

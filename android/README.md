@@ -1,8 +1,9 @@
 # PurseKeep Android companion
 
-Native shell for PurseKeep (application id `app.pursekeep`). Today it forwards
-payment notifications (Google Wallet by default) to your PurseKeep server;
-later it adds a biometric lock and embeds the web app (see the design spec in
+Native shell for PurseKeep (application id `app.pursekeep`). It forwards
+payment notifications (Google Wallet by default) to your PurseKeep server,
+and since 0.2.0 embeds the web app itself as the main screen once paired;
+a biometric lock is next (see the design spec in
 `docs/superpowers/specs/2026-09-22-pursekeep-android-companion-design.md`).
 
 ## Build locally

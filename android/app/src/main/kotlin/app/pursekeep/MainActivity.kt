@@ -19,6 +19,7 @@ import app.pursekeep.ui.MainViewModel
 import app.pursekeep.ui.PairingScreen
 import app.pursekeep.ui.PurseKeepTheme
 import app.pursekeep.ui.Screen
+import app.pursekeep.ui.WebScreen
 import androidx.compose.foundation.layout.Box
 import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.barcode.common.Barcode
@@ -39,13 +40,16 @@ class MainActivity : ComponentActivity() {
             PurseKeepTheme {
                 val state by vm.state.collectAsStateWithLifecycle()
                 LifecycleResumeEffect(Unit) { vm.refreshSystemState(); onPauseOrDispose { } }
-                BackHandler(enabled = state.screen != Screen.Home) { vm.go(Screen.Home) }
+                // Web has its own BackHandler (navigates within the page, or falls through to finish);
+                // only Pairing/Apps return to Home on back.
+                BackHandler(enabled = state.screen == Screen.Pairing || state.screen == Screen.Apps) { vm.go(Screen.Home) }
                 Scaffold { padding ->
                     Box(Modifier.padding(padding)) {
                         when (state.screen) {
                             Screen.Home -> HomeScreen(state, vm)
                             Screen.Pairing -> PairingScreen(state, vm, onScan = scanAction())
                             Screen.Apps -> AppsScreen(state, vm)
+                            Screen.Web -> WebScreen(state, vm)
                         }
                     }
                 }

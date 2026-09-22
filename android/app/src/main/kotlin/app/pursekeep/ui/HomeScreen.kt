@@ -55,9 +55,10 @@ fun HomeScreen(state: UiState, vm: MainViewModel) {
                             Text("Device: ${state.pairing.deviceName}", style = MaterialTheme.typography.bodySmall)
                             state.lastSentAt?.let { Text("Last sent: ${DateFormat.getDateTimeInstance().format(Date(it))}", style = MaterialTheme.typography.bodySmall) }
                             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                OutlinedButton(onClick = { SystemActions.openUrl(ctx, state.pairing.serverUrl) }) { Text("Open PurseKeep") }
+                                Button(onClick = { vm.go(Screen.Web) }) { Text("Open PurseKeep") }
                                 TextButton(onClick = { vm.unpair() }) { Text("Unpair") }
                             }
+                            TextButton(onClick = { SystemActions.openUrl(ctx, state.pairing.serverUrl) }) { Text("Open in browser") }
                         }
                         state.pairingBroken -> {
                             Text("The server rejected this phone's token. Pair again from Settings › Devices.", color = MaterialTheme.colorScheme.error)
