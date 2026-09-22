@@ -401,7 +401,7 @@ From the per-task and final reviews; none affects correctness of v0.1.0.
 - Real-device watch items: does Google Wallet post an amount-less notification that updates later (extra `unparsed` rows)? Does the ML Kit scanner module download over tailnet-only Wi-Fi?
 
 ### Hosting: Render (decided 2026-09-22)
-Public hosting moves from the tailnet box to Render (web Starter + Postgres Basic-256mb, Frankfurt, `render.yaml`).
+Public hosting moved from the tailnet box to Render on 2026-09-22 (web Starter + Postgres Basic-256mb, Frankfurt, `render.yaml`), live at https://pursekeep.com with the data restored from the tailnet.
 Vercel was evaluated and rejected for this app: it would need a cron for FX, build-time migrations, serverless
 pooling and a third-party DB (Neon). Security pass done before exposure: invite-only registration, login throttling,
 security headers, health route. Cutover checklist lives in CLAUDE.md session status; after two weeks decommission

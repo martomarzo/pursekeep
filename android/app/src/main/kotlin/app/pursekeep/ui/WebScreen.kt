@@ -100,6 +100,12 @@ fun WebScreen(state: UiState, vm: MainViewModel) {
                 override fun onPageFinished(view: WebView?, url: String?) {
                     canGoBack = view?.canGoBack() ?: false
                 }
+
+                // Fires on client-side (pushState) navigation too, which the web app uses;
+                // onPageFinished alone would leave canGoBack stale after in-app navigation.
+                override fun doUpdateVisitedHistory(view: WebView?, url: String?, isReload: Boolean) {
+                    canGoBack = view?.canGoBack() ?: false
+                }
             }
 
             webChromeClient = object : WebChromeClient() {

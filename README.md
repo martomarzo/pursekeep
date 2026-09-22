@@ -1,6 +1,6 @@
 # PurseKeep
 
-Personal and shared finances: track expenses, budgets, accounts and cards across currencies, alone or with a household. Live at a tailnet-only URL for now; Android companion app in `android/`. Full design in [plan.md](plan.md).
+Personal and shared finances: track expenses, budgets, accounts and cards across currencies, alone or with a household. Live at https://pursekeep.com (Render); Android companion app in `android/`. Full design in [plan.md](plan.md).
 
 ## Stack
 
@@ -35,7 +35,7 @@ public origin (otherwise Render's own `RENDER_EXTERNAL_URL` is used).
 
 ### Self-hosted with Docker Compose
 
-Push to `main` → GitHub Actions `deploy` workflow runs on a **self-hosted runner** on the home docker host and does `docker compose up -d --build` with env from `/opt/money-maker/.env`.
+Production runs on Render (above). The Compose stack (`docker/compose.yaml`: app + Postgres + Tailscale sidecar exposing the app tailnet-only) remains for self-hosting: on the host run `docker compose --env-file /opt/money-maker/.env -f docker/compose.yaml up -d --build`. The former GitHub Actions self-hosted deploy workflow was retired on 2026-09-22.
 
 One-time server setup (`tailscale ssh root@docker`):
 

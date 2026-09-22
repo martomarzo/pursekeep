@@ -30,6 +30,13 @@ what you can do or how your data is organised.
   inside, keeps you logged in, and the capture settings sit behind a gear
   icon.
 
+### Now at pursekeep.com
+- PurseKeep moved from the home server to Render and is reachable at
+  **https://pursekeep.com** (www redirects there). Your accounts, history and
+  settings were copied over; log in with the same credentials.
+- Pair the phone again from Settings › Phone app & captured payments so the
+  app talks to the new address.
+
 ### Android app (versions)
 - 0.2.0 — the app now shows PurseKeep itself inside the app once paired; the companion status and settings live behind the gear icon. Back navigates inside the web app.
 - 0.1.0 — first release: notification capture, offline queue, QR pairing, update banner.
