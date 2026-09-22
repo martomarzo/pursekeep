@@ -17,5 +17,6 @@
 
 Under **Apps to listen to** you can add Revolut, Wise or any app by package
 name. Offline taps are queued and sent when the phone is back online.
-If the web app says a device is revoked, the app shows "no longer paired" —
-create a new device and scan again.
+If you revoke a device on the web, the phone gets a notification ("PurseKeep
+is no longer paired") and the app's home screen offers **Pair again** —
+create a new device and scan its code.

@@ -240,7 +240,7 @@ mappings. Migration 0003: `wallet_devices`, `wallet_card_mappings`,
 `wallet_captures` (raw payload kept; `capture_hash` unique = idempotent
 ingest; parse failures land in the inbox, never as wrong transactions).
 No reconciliation with statement imports — those were a one-time backfill.
-**Full spec: `docs/superpowers/specs/2026-08-19-wallet-capture-design.md`.** Setup guides at `docs/wallet-android-setup.md` / `docs/wallet-ios-setup.md`.
+**Full spec: `docs/superpowers/specs/2026-08-19-wallet-capture-design.md`.** Setup guides were at `docs/wallet-android-setup.md` (now the companion-app guide) and `docs/wallet-ios-setup.md`.
 
 Status: deployed 2026-08-19, but the first real taps **did not arrive** and the
 user does not want to depend on configuring a third-party phone automation

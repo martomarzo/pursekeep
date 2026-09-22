@@ -18,7 +18,7 @@ export default async function WalletPage() {
   return (
     <div className="flex flex-1 flex-col gap-6">
       <PageHeader
-        title="Wallet captures"
+        title="Captured payments"
         description="Payments captured from your phone. Booked ones are already in your transactions — fix up the rest here."
       />
       <WalletInbox
