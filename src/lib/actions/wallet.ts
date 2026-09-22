@@ -50,12 +50,17 @@ export async function createWalletDevice(
     return { ok: false, error: "Give the device a name (max 60 chars)" };
   }
   const token = generateDeviceToken();
+  let svg: string;
+  try {
+    ({ svg } = await pairingQrSvg(token));
+  } catch (e) {
+    return { ok: false, error: "Pairing QR unavailable: " + (e instanceof Error ? e.message : String(e)) };
+  }
   await db.insert(walletDevices).values({
     userId,
     name,
     tokenHash: hashDeviceToken(token),
   });
-  const { svg } = await pairingQrSvg(token);
   revalidatePath("/settings/devices");
   // Plaintext token is returned exactly once and never stored.
   return { ok: true, token, deviceName: name, qrSvg: svg };

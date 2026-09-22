@@ -72,7 +72,7 @@ export function WalletDevicesPanel({
             </p>
             {result.qrSvg && (
               <div
-                className="mx-auto my-3 w-60 rounded bg-white p-2"
+                className="mx-auto my-3 w-60 rounded bg-white p-2 [&>svg]:h-auto [&>svg]:w-full"
                 aria-label="Pairing QR code"
                 dangerouslySetInnerHTML={{ __html: result.qrSvg }}
               />

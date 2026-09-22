@@ -26,8 +26,9 @@ import { hashDeviceToken } from "@/lib/wallet/tokens";
 import { capturePayloadSchema, type CapturePayload } from "@/lib/wallet/types";
 
 /** Body → payload. Falls back to wrapping the raw text as an unstructured
- *  android payload when JSON parsing fails (MacroDroid can't JSON-escape
- *  notification text) — a capture is never lost to a quoting bug.
+ *  android payload when JSON parsing fails. Some clients cannot JSON-escape
+ *  notification text; keep the raw body instead of 4xx-ing.
+ *  A capture is never lost to a quoting bug.
  *  `rawFallbackText` is set only when the fallback path was taken, so the
  *  caller can hash from the original body text instead of the wrapper
  *  (which is stamped with the current time and would otherwise break

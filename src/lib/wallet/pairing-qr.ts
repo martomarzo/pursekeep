@@ -3,7 +3,10 @@ import QRCode from "qrcode";
 /** Origin the phone should talk to — AUTH_URL is already the public origin
  *  of this deployment (tailnet today, pursekeep.app later). */
 export function serverOrigin(): string {
-  const raw = process.env.AUTH_URL ?? "";
+  const raw = (process.env.AUTH_URL ?? "").trim();
+  if (raw === "" || !raw.startsWith("https://")) {
+    throw new Error("AUTH_URL must be set to the https origin of this deployment");
+  }
   return raw.replace(/\/+$/, "");
 }
 
