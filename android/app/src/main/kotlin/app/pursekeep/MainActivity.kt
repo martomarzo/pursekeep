@@ -20,6 +20,9 @@ import app.pursekeep.ui.PairingScreen
 import app.pursekeep.ui.PurseKeepTheme
 import app.pursekeep.ui.Screen
 import androidx.compose.foundation.layout.Box
+import com.google.mlkit.vision.barcode.common.Barcode
+import com.google.mlkit.vision.codescanner.GmsBarcodeScannerOptions
+import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
 
 class MainActivity : ComponentActivity() {
     private val vm: MainViewModel by viewModels()
@@ -49,6 +52,10 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    /** QR scanning is wired in Task 10; until then manual entry only. */
-    private fun scanAction(): (() -> Unit)? = null
+    private fun scanAction(): (() -> Unit) = {
+        val options = GmsBarcodeScannerOptions.Builder().setBarcodeFormats(Barcode.FORMAT_QR_CODE).build()
+        GmsBarcodeScanning.getClient(this, options).startScan()
+            .addOnSuccessListener { barcode -> barcode.rawValue?.let { vm.pairScanned(it) } }
+            .addOnFailureListener { e -> vm.pairFailed(e.message ?: "Scanner unavailable — enter the token by hand") }
+    }
 }

@@ -70,6 +70,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun go(screen: Screen) { local.value = Pair(screen, null) }
+    fun pairFailed(message: String) { local.value = Pair(Screen.Pairing, message) }
 
     fun pairManual(url: String, token: String) = pairWith(PairingParser.manual(url, token))
     fun pairScanned(raw: String) = pairWith(PairingParser.parse(raw))
