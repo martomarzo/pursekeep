@@ -125,7 +125,7 @@ This is the riskiest part, so the design is deliberately boring:
 ## 6. Feature scope by phase
 
 ### Phase 0 — Skeleton (foundation)
-- Repo (github.com/martomarzo/money-maker), Next.js + TS + Tailwind, Drizzle + Postgres, Docker Compose (app, postgres, tailscale sidecar).
+- Repo (github.com/martomarzo/pursekeep), Next.js + TS + Tailwind, Drizzle + Postgres, Docker Compose (app, postgres, tailscale sidecar).
 - CI workflow + deploy workflow (self-hosted runner on the docker host); first deploy reachable at `https://money-maker.<tailnet>.ts.net`.
 - Auth (register/login), create household, invite partner via link/code.
 - Seed default categories.
@@ -374,7 +374,7 @@ Next for the Android app: Companion step 2: biometric lock + embedded web app (P
 
 ## 9. Deployment & CI/CD
 
-- **Repo:** `https://github.com/martomarzo/money-maker` — everything lives here; push to `main` triggers deploy.
+- **Repo:** `https://github.com/martomarzo/pursekeep` — everything lives here; push to `main` triggers deploy.
 - **Server:** home docker host, reachable via `tailscale ssh root@docker`. The app lives in `/opt/money-maker` (checkout, `.env`, volumes for postgres data and tailscale state).
 - **Pipeline (GitHub Actions):**
   - `ci` job on GitHub-hosted runners: lint, typecheck, unit tests, build check. Runs on every push/PR.

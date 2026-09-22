@@ -10,7 +10,7 @@
 set -euo pipefail
 
 HOST="root@docker"
-REPO="martomarzo/money-maker"
+REPO="martomarzo/pursekeep"
 TAILNET="peacock-snapper.ts.net"
 
 echo "==> 1/2 /opt/money-maker/.env"

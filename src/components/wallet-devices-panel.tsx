@@ -50,7 +50,7 @@ export function WalletDevicesPanel({
         <CardTitle>Add device</CardTitle>
         <p className="text-xs text-muted">
           Install the PurseKeep Android app from the{" "}
-          <a className="underline" href="https://github.com/martomarzo/money-maker/releases/latest">latest release</a>, then create a device here and scan its QR code.
+          <a className="underline" href="https://github.com/martomarzo/pursekeep/releases/latest">latest release</a>, then create a device here and scan its QR code.
         </p>
         <form action={formAction} className="flex flex-wrap items-center gap-2">
           <input

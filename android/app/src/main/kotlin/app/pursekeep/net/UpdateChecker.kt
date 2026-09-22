@@ -21,8 +21,8 @@ class UpdateChecker(
     }.getOrNull()
 
     companion object {
-        const val LATEST_URL = "https://api.github.com/repos/martomarzo/money-maker/releases/latest"
-        const val RELEASES_PAGE = "https://github.com/martomarzo/money-maker/releases/latest"
+        const val LATEST_URL = "https://api.github.com/repos/martomarzo/pursekeep/releases/latest"
+        const val RELEASES_PAGE = "https://github.com/martomarzo/pursekeep/releases/latest"
         private const val PREFIX = "android-v"
 
         fun isNewer(tag: String, current: String): Boolean {

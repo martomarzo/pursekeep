@@ -1,7 +1,7 @@
 # Android setup — PurseKeep companion app
 
 1. On the phone, download `pursekeep-<version>.apk` from
-   https://github.com/martomarzo/money-maker/releases/latest and open it
+   https://github.com/martomarzo/pursekeep/releases/latest and open it
    (allow installing from your browser once). The phone must reach your
    server (today: Tailscale connected).
 2. In the web app open **Settings › Phone app & captured payments**, create a

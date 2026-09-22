@@ -28,10 +28,10 @@ The release workflow signs with the same keystore as local builds. Set these fou
 (run from the machine that holds `~/.pursekeep/`):
 ```bash
 cd ~/.pursekeep
-gh secret set ANDROID_KEYSTORE_BASE64 --repo martomarzo/money-maker --body "$(base64 -w0 release.jks)"
-gh secret set ANDROID_KEYSTORE_PASSWORD --repo martomarzo/money-maker --body "$(grep '^storePassword=' keystore.properties | cut -d= -f2-)"
-gh secret set ANDROID_KEY_ALIAS --repo martomarzo/money-maker --body pursekeep
-gh secret set ANDROID_KEY_PASSWORD --repo martomarzo/money-maker --body "$(grep '^keyPassword=' keystore.properties | cut -d= -f2-)"
+gh secret set ANDROID_KEYSTORE_BASE64 --repo martomarzo/pursekeep --body "$(base64 -w0 release.jks)"
+gh secret set ANDROID_KEYSTORE_PASSWORD --repo martomarzo/pursekeep --body "$(grep '^storePassword=' keystore.properties | cut -d= -f2-)"
+gh secret set ANDROID_KEY_ALIAS --repo martomarzo/pursekeep --body pursekeep
+gh secret set ANDROID_KEY_PASSWORD --repo martomarzo/pursekeep --body "$(grep '^keyPassword=' keystore.properties | cut -d= -f2-)"
 ```
 A tag build fails if any secret is missing; branch/PR builds fall back to a debug-signed artifact with a warning.
 Let the workflow run green once on a branch or PR before pushing the first tag.
