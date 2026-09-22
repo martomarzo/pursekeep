@@ -7,6 +7,7 @@ name: Deploy
 on:
   push:
     branches: [main]
+    paths-ignore: ["android/**", ".github/workflows/android.yaml"]
 
 concurrency:
   group: deploy
