@@ -6,11 +6,16 @@ what you can do or how your data is organised.
 
 ## 2026-09-22
 
-### Look & feel
-- One icon everywhere: the purse mark used by the Android app is now the web
-  app's icon, favicon and home-screen icon too.
-- **Appearance** in Settings: choose System, Light or Dark. On the Android
-  app the theme now follows the phone's dark-mode setting as well.
+### The app is now called PurseKeep
+- New name everywhere you see it (web app title, home-screen icon label). Nothing
+  about your data or your login changed. Domains: pursekeep.com (live) and pursekeep.app (reserved).
+
+### Now at pursekeep.com
+- PurseKeep moved from the home server to Render and is reachable at
+  **https://pursekeep.com** (www redirects there). Your accounts, history and
+  settings were copied over; log in with the same credentials.
+- Pair the phone again from Settings › Phone app & captured payments so the
+  app talks to the new address.
 
 ### Sign-up and safety on a public URL
 - Signing up from a household invite link creates your account and joins you
@@ -18,10 +23,6 @@ what you can do or how your data is organised.
 - Opening an invite link while logged out now takes you straight to sign-up
   instead of asking you to log in first.
 - Repeated failed sign-in attempts are now throttled to slow down guessing.
-
-### The app is now called PurseKeep
-- New name everywhere you see it (web app title, home-screen icon label). Nothing
-  about your data or your login changed. Domain reserved: pursekeep.app.
 
 ### Android app: automatic payment capture
 - **PurseKeep for Android** (v0.1.0, from GitHub Releases) reads Google Wallet
@@ -36,12 +37,11 @@ what you can do or how your data is organised.
   inside, keeps you logged in, and the capture settings sit behind a gear
   icon.
 
-### Now at pursekeep.com
-- PurseKeep moved from the home server to Render and is reachable at
-  **https://pursekeep.com** (www redirects there). Your accounts, history and
-  settings were copied over; log in with the same credentials.
-- Pair the phone again from Settings › Phone app & captured payments so the
-  app talks to the new address.
+### Look & feel
+- One icon everywhere: the purse mark used by the Android app is now the web
+  app's icon, favicon and home-screen icon too.
+- **Appearance** in Settings: choose System, Light or Dark. On the Android
+  app the theme now follows the phone's dark-mode setting as well.
 
 ### Android app (versions)
 - 0.2.0 — the app now shows PurseKeep itself inside the app once paired; the companion status and settings live behind the gear icon. Back navigates inside the web app.

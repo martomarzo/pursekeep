@@ -404,6 +404,6 @@ From the per-task and final reviews; none affects correctness of v0.1.0.
 Public hosting moved from the tailnet box to Render on 2026-09-22 (web Starter + Postgres Basic-256mb, Frankfurt, `render.yaml`), live at https://pursekeep.com with the data restored from the tailnet.
 Vercel was evaluated and rejected for this app: it would need a cron for FX, build-time migrations, serverless
 pooling and a third-party DB (Neon). Security pass done before exposure: invite-only registration, login throttling,
-security headers, health route. Cutover checklist lives in CLAUDE.md session status; after two weeks decommission
+security headers, health route. Deploys: CI → Render Deploy Hook (Render's GitHub auto-deploy went silent after the repo rename). Cutover checklist lives in CLAUDE.md session status; after two weeks decommission
 the tailnet compose stack and the self-hosted runner. Later: Postgres logical backups off-platform, Cloudflare in
 front if login abuse ever shows up.

@@ -13,9 +13,9 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -25,3 +25,21 @@ jobs:
       - run: npm run typecheck
       - run: npm run test
       - run: npm run build
+
+  # Production deploy: Render's GitHub auto-deploy stopped firing after the
+  # 2026-09-22 repo rename, so CI triggers the service's Deploy Hook instead —
+  # which also gates the deploy on lint/typecheck/tests/build passing.
+  deploy:
+    needs: ci
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render deploy
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::warning::RENDER_DEPLOY_HOOK secret not set — skipping deploy"
+            exit 0
+          fi
+          curl -fsS -X POST "$HOOK" > /dev/null && echo "Render deploy triggered"

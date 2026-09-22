@@ -15,7 +15,9 @@ services:
     dockerfilePath: ./docker/Dockerfile
     dockerContext: .
     healthCheckPath: /api/health
-    autoDeployTrigger: commit
+    # Deploys are triggered by CI via the Deploy Hook (see .github/workflows/ci.yaml);
+    # Render's own GitHub auto-deploy stopped firing after the repo rename.
+    autoDeployTrigger: off
     buildFilter:
       ignoredPaths:
         - android/**

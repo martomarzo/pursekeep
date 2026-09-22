@@ -32,6 +32,9 @@ wires `DATABASE_URL` between them, and generates `AUTH_SECRET`.
 by default on a public URL — send people a household invite link rather than
 opening registration. If you attach a custom domain, set `AUTH_URL` to that
 public origin (otherwise Render's own `RENDER_EXTERNAL_URL` is used).
+Deploys are triggered by the CI workflow after lint/typecheck/tests/build pass,
+through the service's Deploy Hook stored as the `RENDER_DEPLOY_HOOK` repository
+secret (Render dashboard → service → Settings → Deploy Hook).
 
 ### Self-hosted with Docker Compose
 

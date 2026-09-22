@@ -18,14 +18,14 @@ jobs:
       run:
         working-directory: android
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: "17"
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v6
 
       - name: Restore release keystore from secrets
         env:
@@ -70,14 +70,14 @@ jobs:
         run: |
           "$ANDROID_HOME/build-tools/$(ls "$ANDROID_HOME/build-tools" | sort -V | tail -1)/apksigner" verify --print-certs "pursekeep-${{ steps.v.outputs.name }}.apk" | grep -i "certificate DN" || true
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: pursekeep-apk
           path: android/pursekeep-${{ steps.v.outputs.name }}.apk
 
       - name: GitHub Release
         if: startsWith(github.ref, 'refs/tags/android-v')
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: android/pursekeep-${{ steps.v.outputs.name }}.apk
           generate_release_notes: true
