@@ -1,6 +1,6 @@
-# Money Maker
+# PurseKeep
 
-Multi-user, offline-first PWA for tracking household expenses, budgets, accounts, and cards across multiple currencies (EUR base; USD, ARS, PYG supported). Full design in [plan.md](plan.md).
+Personal and shared finances: track expenses, budgets, accounts and cards across currencies, alone or with a household. Live at a tailnet-only URL for now; Android companion app in `android/`. Full design in [plan.md](plan.md).
 
 ## Stack
 

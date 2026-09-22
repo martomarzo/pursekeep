@@ -49,7 +49,7 @@ export function AppShell({
           <Link href="/" className="flex items-center gap-2.5">
             <Logo className="h-7 w-7" />
             <span className="flex flex-col leading-tight">
-              <span className="text-sm font-semibold tracking-tight">Money Maker</span>
+              <span className="text-sm font-semibold tracking-tight">PurseKeep</span>
               {householdName && (
                 <span className="text-[11px] text-muted">{householdName}</span>
               )}

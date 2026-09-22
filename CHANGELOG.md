@@ -1,6 +1,6 @@
 # Changelog
 
-User-facing summary of what changed in Money Maker, one section per working
+User-facing summary of what changed in PurseKeep, one section per working
 session (newest first). Internal refactors are mentioned only when they change
 what you can do or how your data is organised.
 

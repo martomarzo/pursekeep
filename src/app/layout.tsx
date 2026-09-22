@@ -13,10 +13,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: { default: "Money Maker", template: "%s · Money Maker" },
+  title: { default: "PurseKeep", template: "%s · PurseKeep" },
   description: "Household finance tracker",
-  applicationName: "Money Maker",
-  appleWebApp: { capable: true, statusBarStyle: "default", title: "Money Maker" },
+  applicationName: "PurseKeep",
+  appleWebApp: { capable: true, statusBarStyle: "default", title: "PurseKeep" },
 };
 
 export const viewport: Viewport = {

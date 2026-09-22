@@ -16,7 +16,7 @@ export default async function JoinInvitePage({
       <div className="flex w-full max-w-sm flex-col gap-6">
         <div className="flex flex-col items-center gap-2">
           <Logo className="h-10 w-10" />
-          <span className="text-xl font-semibold tracking-tight">Money Maker</span>
+          <span className="text-xl font-semibold tracking-tight">PurseKeep</span>
           <span className="text-sm text-muted">Household finance</span>
         </div>
 

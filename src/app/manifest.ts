@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Money Maker",
-    short_name: "Money",
-    description: "Household finance tracker",
+    name: "PurseKeep",
+    short_name: "PurseKeep",
+    description: "Personal and shared finances",
     start_url: "/",
     display: "standalone",
     background_color: "#f7f6f3",
