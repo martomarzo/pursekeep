@@ -45,6 +45,7 @@ what you can do or how your data is organised.
 
 ### Android app (versions)
 - 0.2.0 — the app now shows PurseKeep itself inside the app once paired; the companion status and settings live behind the gear icon. Back navigates inside the web app.
+- 0.2.1 — follows the phone's dark-mode setting (the embedded app switches theme with the system, or with the new Appearance setting).
 - 0.1.0 — first release: notification capture, offline queue, QR pairing, update banner.
 
 ## 2026-08-25

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Light here, dark in values-night, so the embedded WebView reports the system dark/light setting
+         to the web app (prefers-color-scheme follows the app theme on Android). -->
     <style name="Theme.PurseKeep" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
