@@ -2,6 +2,8 @@ name: CI
 
 on:
   push:
+    # branches must be listed explicitly: with only tags-ignore, GitHub stops running on branch pushes
+    branches: ["**"]
     tags-ignore: ["android-v*"]
     paths-ignore: ["android/**", ".github/workflows/android.yaml"]
   pull_request:
