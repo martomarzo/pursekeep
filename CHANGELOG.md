@@ -6,6 +6,13 @@ what you can do or how your data is organised.
 
 ## 2026-09-22
 
+### Sign-up and safety on a public URL
+- Signing up from a household invite link creates your account and joins you
+  to that household in one step.
+- Opening an invite link while logged out now takes you straight to sign-up
+  instead of asking you to log in first.
+- Repeated failed sign-in attempts are now throttled to slow down guessing.
+
 ### The app is now called PurseKeep
 - New name everywhere you see it (web app title, home-screen icon label). Nothing
   about your data or your login changed. Domain reserved: pursekeep.app.

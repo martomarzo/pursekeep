@@ -1,15 +1,23 @@
-import { requireUserId } from "@/lib/session";
+import { redirect } from "next/navigation";
+import { auth } from "@/auth";
 import { JoinHouseholdForm } from "@/components/join-household-form";
 import { Logo } from "@/components/app-shell";
 import { Card } from "@/components/ui";
+import { registrationMode } from "@/lib/registration";
 
 export default async function JoinInvitePage({
   params,
 }: {
   params: Promise<{ code: string }>;
 }) {
-  await requireUserId();
   const { code } = await params;
+  const session = await auth();
+  if (!session?.user?.id) {
+    if (registrationMode() === "closed") {
+      redirect(`/login?callbackUrl=/join/${code}`);
+    }
+    redirect(`/register?invite=${encodeURIComponent(code)}`);
+  }
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center px-4 py-12">

@@ -2,4 +2,4 @@
 set -e
 
 npx drizzle-kit migrate
-exec npx next start -H 0.0.0.0 -p 3000
+exec npx next start -H 0.0.0.0 -p "${PORT:-3000}"

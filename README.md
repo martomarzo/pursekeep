@@ -23,6 +23,18 @@ Useful scripts: `npm run lint` · `npm run typecheck` · `npm run test` · `npm 
 
 ## Deployment
 
+### Render (recommended)
+
+The repo ships a `render.yaml` Blueprint. In the Render dashboard: Blueprints
+→ New → select this repo. It creates the web service and a Postgres database,
+wires `DATABASE_URL` between them, and generates `AUTH_SECRET`.
+`REGISTRATION_MODE=invite` is set by the blueprint, so sign-up is invite-only
+by default on a public URL — send people a household invite link rather than
+opening registration. If you attach a custom domain, set `AUTH_URL` to that
+public origin (otherwise Render's own `RENDER_EXTERNAL_URL` is used).
+
+### Self-hosted with Docker Compose
+
 Push to `main` → GitHub Actions `deploy` workflow runs on a **self-hosted runner** on the home docker host and does `docker compose up -d --build` with env from `/opt/money-maker/.env`.
 
 One-time server setup (`tailscale ssh root@docker`):
@@ -31,7 +43,7 @@ One-time server setup (`tailscale ssh root@docker`):
 2. Install a GitHub Actions self-hosted runner (repo → Settings → Actions → Runners → New self-hosted runner), run it as a systemd service, runner user in the `docker` group.
 3. Put a one-time Tailscale auth key in `TS_AUTHKEY` for first boot; the tailscale state volume persists the identity afterwards.
 
-App comes up at `https://money-maker.<your-tailnet>.ts.net` (tailnet-only; both phones need the Tailscale app).
+App comes up at `https://money-maker.<your-tailnet>.ts.net` (tailnet-only; both phones need the Tailscale app). `REGISTRATION_MODE` is unset here, so it defaults to `open` — same behaviour as before.
 
 ## Project layout
 

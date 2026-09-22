@@ -1,11 +1,13 @@
 import QRCode from "qrcode";
 
 /** Origin the phone should talk to — AUTH_URL is already the public origin
- *  of this deployment (tailnet today, pursekeep.app later). */
+ *  of this deployment (tailnet today, pursekeep.app later). Falls back to
+ *  RENDER_EXTERNAL_URL, which Render sets automatically, when AUTH_URL isn't
+ *  configured. */
 export function serverOrigin(): string {
-  const raw = (process.env.AUTH_URL ?? "").trim();
+  const raw = (process.env.AUTH_URL ?? process.env.RENDER_EXTERNAL_URL ?? "").trim();
   if (raw === "" || !raw.startsWith("https://")) {
-    throw new Error("AUTH_URL must be set to the https origin of this deployment");
+    throw new Error("AUTH_URL or RENDER_EXTERNAL_URL must be set to the https origin of this deployment");
   }
   return raw.replace(/\/+$/, "");
 }

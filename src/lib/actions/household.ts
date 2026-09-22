@@ -76,6 +76,15 @@ export async function createInvite(householdId: string): Promise<{ code: string 
   return { code };
 }
 
+/** An invite that exists, is unused and unexpired — the shared "is this
+ *  invite usable right now" check for both joining and invite-gated
+ *  registration. */
+export async function findUsableInvite(code: string) {
+  return db.query.invites.findFirst({
+    where: and(eq(invites.code, code), isNull(invites.usedByUserId), gt(invites.expiresAt, new Date())),
+  });
+}
+
 export async function joinHousehold(
   _prev: ActionResult | null,
   formData: FormData,
@@ -84,9 +93,7 @@ export async function joinHousehold(
   const code = String(formData.get("code") ?? "").trim();
   if (!code) return { ok: false, error: "Enter an invite code" };
 
-  const invite = await db.query.invites.findFirst({
-    where: and(eq(invites.code, code), isNull(invites.usedByUserId), gt(invites.expiresAt, new Date())),
-  });
+  const invite = await findUsableInvite(code);
   if (!invite) return { ok: false, error: "Invite is invalid or expired" };
 
   const existing = await db.query.memberships.findFirst({
