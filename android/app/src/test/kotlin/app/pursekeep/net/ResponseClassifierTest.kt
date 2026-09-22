@@ -11,5 +11,7 @@ class ResponseClassifierTest {
     @Test fun `401`() = assertEquals(SendResult.Unauthorized, ResponseClassifier.classify(401, """{"error":"unauthorized"}"""))
     @Test fun `400 never retried`() = assertEquals(SendResult.Rejected("empty body"), ResponseClassifier.classify(400, """{"error":"empty body"}"""))
     @Test fun `500 retries`() = assertTrue(ResponseClassifier.classify(500, "boom") is SendResult.Retry)
+    @Test fun `429 retries`() = assertTrue(ResponseClassifier.classify(429, "") is SendResult.Retry)
+    @Test fun `408 retries`() = assertTrue(ResponseClassifier.classify(408, "") is SendResult.Retry)
     @Test fun `unparseable success body still counts as sent`() = assertEquals(SendResult.Sent("ok"), ResponseClassifier.classify(201, "<html>"))
 }

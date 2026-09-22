@@ -54,6 +54,8 @@ android/build/
 android/app/build/
 android/local.properties
 android/keystore.properties
-android/*.jks
+*.jks
+*.keystore
+android/app/release/
 android/.kotlin/
 android/.idea/

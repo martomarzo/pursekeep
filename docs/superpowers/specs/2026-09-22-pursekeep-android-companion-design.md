@@ -4,7 +4,10 @@ Status: **approved 2026-09-22; implementation plan at `docs/superpowers/plans/20
 approach in `docs/wallet-android-setup.md` (MacroDroid) and the "Phase 1.7
 superseded" note in plan.md §6. Server-side wallet capture
 (`src/lib/wallet/`, `POST /api/wallet/capture`, migration 0003) stays as is
-and becomes the primary capture path.
+and becomes the primary capture path. Further accepted deviations:
+`APPEND_OR_REPLACE` (not `KEEP`) for the flush work; GitHub release body
+from generated release notes; artifact named `pursekeep-<versionName>.apk`
+on every run.
 
 ## 1. Why
 

@@ -38,6 +38,16 @@ jobs:
             echo "::warning::No ANDROID_KEYSTORE_BASE64 secret — APK will be debug-signed"
           fi
 
+      - name: Release tags require the release keystore
+        if: startsWith(github.ref, 'refs/tags/android-v')
+        env:
+          KS_PASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASS: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          test -n "${ANDROID_KEYSTORE_FILE:-}" || { echo "::error::ANDROID_KEYSTORE_BASE64 secret missing — refusing to release a debug-signed APK"; exit 1; }
+          test -n "$KS_PASS" && test -n "$KEY_ALIAS" && test -n "$KEY_PASS" || { echo "::error::ANDROID_KEYSTORE_PASSWORD / ANDROID_KEY_ALIAS / ANDROID_KEY_PASSWORD secret missing"; exit 1; }
+
       - name: Read version
         id: v
         run: echo "name=$(grep '^versionName=' version.properties | cut -d= -f2 | tr -d '[:space:]')" >> "$GITHUB_OUTPUT"
@@ -55,6 +65,10 @@ jobs:
 
       - name: Name the APK
         run: cp app/build/outputs/apk/release/app-release.apk "pursekeep-${{ steps.v.outputs.name }}.apk"
+
+      - name: Print APK signer
+        run: |
+          "$ANDROID_HOME/build-tools/$(ls "$ANDROID_HOME/build-tools" | sort -V | tail -1)/apksigner" verify --print-certs "pursekeep-${{ steps.v.outputs.name }}.apk" | grep -i "certificate DN" || true
 
       - uses: actions/upload-artifact@v4
         with:

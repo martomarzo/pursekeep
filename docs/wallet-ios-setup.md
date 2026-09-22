@@ -1,4 +1,4 @@
-# iPhone setup — forward Apple Pay transactions to Money Maker
+# iPhone setup — forward Apple Pay transactions to PurseKeep
 
 Requires: iOS 17+, the phone on the tailnet (Tailscale app connected), and
 a device token created for YOUR user at

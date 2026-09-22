@@ -20,6 +20,7 @@ import app.pursekeep.ui.PairingScreen
 import app.pursekeep.ui.PurseKeepTheme
 import app.pursekeep.ui.Screen
 import androidx.compose.foundation.layout.Box
+import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.codescanner.GmsBarcodeScannerOptions
 import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
@@ -33,7 +34,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        askNotifications.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+        if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED) askNotifications.launch(android.Manifest.permission.POST_NOTIFICATIONS)
         setContent {
             PurseKeepTheme {
                 val state by vm.state.collectAsStateWithLifecycle()
@@ -56,6 +57,12 @@ class MainActivity : ComponentActivity() {
         val options = GmsBarcodeScannerOptions.Builder().setBarcodeFormats(Barcode.FORMAT_QR_CODE).build()
         GmsBarcodeScanning.getClient(this, options).startScan()
             .addOnSuccessListener { barcode -> barcode.rawValue?.let { vm.pairScanned(it) } }
-            .addOnFailureListener { e -> vm.pairFailed(e.message ?: "Scanner unavailable — enter the token by hand") }
+            .addOnFailureListener { e ->
+                if (e is MlKitException && e.errorCode == MlKitException.CODE_SCANNER_CANCELLED) {
+                    // user backed out of the scanner; not an error
+                } else {
+                    vm.pairFailed(e.message ?: "Scanner unavailable — enter the token by hand")
+                }
+            }
     }
 }

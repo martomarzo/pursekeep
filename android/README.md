@@ -23,6 +23,19 @@ Requires JDK 17.
 (allow installs from this source once). Official builds: GitHub Releases, tags `android-v*`.
 
 ## Release
+### CI secrets (once per repository)
+The release workflow signs with the same keystore as local builds. Set these four secrets once
+(run from the machine that holds `~/.pursekeep/`):
+```bash
+cd ~/.pursekeep
+gh secret set ANDROID_KEYSTORE_BASE64 --repo martomarzo/money-maker --body "$(base64 -w0 release.jks)"
+gh secret set ANDROID_KEYSTORE_PASSWORD --repo martomarzo/money-maker --body "$(grep '^storePassword=' keystore.properties | cut -d= -f2-)"
+gh secret set ANDROID_KEY_ALIAS --repo martomarzo/money-maker --body pursekeep
+gh secret set ANDROID_KEY_PASSWORD --repo martomarzo/money-maker --body "$(grep '^keyPassword=' keystore.properties | cut -d= -f2-)"
+```
+A tag build fails if any secret is missing; branch/PR builds fall back to a debug-signed artifact with a warning.
+Let the workflow run green once on a branch or PR before pushing the first tag.
+
 1. Bump `versionName` (semver) and `versionCode` (+1) in `version.properties`; add an "Android app" line to `CHANGELOG.md`.
 2. Commit, push, then `git tag android-vX.Y.Z && git push origin android-vX.Y.Z` — CI attaches `pursekeep-X.Y.Z.apk` to a GitHub Release.
 3. Phones show an "Update available" banner on next open.

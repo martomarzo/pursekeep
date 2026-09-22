@@ -16,6 +16,7 @@ object ResponseClassifier {
     fun classify(code: Int, body: String): SendResult = when {
         code == 200 || code == 201 -> SendResult.Sent(parseStatus(body))
         code == 401 -> SendResult.Unauthorized
+        code == 408 || code == 425 || code == 429 -> SendResult.Retry("HTTP $code")
         code in 400..499 -> SendResult.Rejected(parseError(body) ?: "HTTP $code")
         else -> SendResult.Retry("HTTP $code")
     }

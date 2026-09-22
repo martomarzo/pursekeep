@@ -22,8 +22,9 @@ Headers: `Authorization: Bearer <device token>` · `Content-Type: application/js
 - `201 {"id":"<uuid>","status":"booked"|"needs_account"|"unparsed"}`
 - `200 {"duplicate":true}` — same device already sent this payload
 - `400 {"error":"empty body"}` — permanent, do not retry
+- other `4xx` (except 408/425/429) — permanent, the app marks the row failed
 - `401 {"error":"unauthorized"}` — token missing/revoked: the app marks itself unpaired
-- `5xx` / network errors — retry with backoff; the app gives up after 30 days
+- `5xx`, `408`, `425`, `429` and network errors — retry with backoff; the app gives up after 30 days
 
 ## Pairing QR
 `{"v":1,"app":"pursekeep","url":"https://<origin>","token":"<device token>"}` — the app rejects
