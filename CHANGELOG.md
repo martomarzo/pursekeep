@@ -4,6 +4,25 @@ User-facing summary of what changed in PurseKeep, one section per working
 session (newest first). Internal refactors are mentioned only when they change
 what you can do or how your data is organised.
 
+## 2026-09-22
+
+### The app is now called PurseKeep
+- New name everywhere you see it (web app title, home-screen icon label). Nothing
+  about your data or your login changed. Domain reserved: pursekeep.app.
+
+### Android app: automatic payment capture
+- **PurseKeep for Android** (v0.1.0, from GitHub Releases) reads Google Wallet
+  payment notifications (Revolut, Wise or any app you add) and sends them to
+  your PurseKeep server, even if you were offline when you paid.
+- Pair the phone by scanning a **QR code** from Settings › Phone app & captured
+  payments. A "Send test" button proves the link without spending anything.
+- Devices show which app version they run; revoking a device makes the phone
+  tell you it needs pairing again.
+- The old "experimental" notes and the MacroDroid instructions are gone.
+
+### Android app (versions)
+- 0.1.0 — first release: notification capture, offline queue, QR pairing, update banner.
+
 ## 2026-08-25
 
 ### Your ledger is private; sharing is explicit

@@ -249,6 +249,11 @@ user does not want to depend on configuring a third-party phone automation
 from the main nav, labelled as such in-page); no further parser work is
 planned. Capture now happens **natively in the app** — see Phase 1.8.
 
+**Replaced 2026-09-22 by the native PurseKeep Android companion** (spec
+`docs/superpowers/specs/2026-09-22-pursekeep-android-companion-design.md`,
+code in `android/`). Roadmap: biometric lock + embedded web app (Play Store
+candidate) → native screens only if needed.
+
 ### Phase 1.8 — Native quick capture (DONE 2026-08-25)
 
 Logging an expense must be the fastest thing the app does, with nothing to
@@ -320,6 +325,8 @@ a household; categories+rules seed at registration.
 
 **Milestone: log expenses on the subway; they appear on your partner's device later.**
 
+Next for the Android app: Companion step 2: biometric lock + embedded web app (Play Store candidate).
+
 ### Phase 3 — Budgets & reports
 - Monthly budgets per category (household + personal views), progress bars, over-budget alerts.
 - Reports: spending by category/month/person/account, per-currency + converted, trend charts.
@@ -329,6 +336,7 @@ a household; categories+rules seed at registration.
 - Recurring transactions (rent, subscriptions) with auto-posting.
 - CSV/JSON export, automated Postgres backups in compose (bank import already landed in Phase 1.5).
 - Nice-to-haves backlog: receipt photo attachments, Splitwise-style settle-up, category rules ("payee contains 'Lidl' → Groceries"), widgets/shortcuts.
+- **Public hosting on pursekeep.app** (Render/Vercel/…): needs a security pass before leaving the tailnet — rate limiting on login/register, password policy, passkeys, session/cookie hardening, invite-only registration, backups. Separate design session.
 
 ## 7. Project structure
 
