@@ -141,10 +141,17 @@ export function Logo({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 64 64" className={className} aria-hidden="true">
       <rect width="64" height="64" rx="14" fill="var(--accent)" />
-      <path
-        d="M14 46V20l9 0 9 14 9-14h9v26h-8V32l-10 15-10-15v14z"
-        fill="var(--on-accent)"
-      />
+      <g transform="scale(0.5926)">
+        <path
+          d="M30,46 h48 a8,8 0 0 1 8,8 v18 a8,8 0 0 1 -8,8 h-48 a8,8 0 0 1 -8,-8 v-18 a8,8 0 0 1 8,-8 z"
+          fill="var(--on-accent)"
+        />
+        <path
+          d="M38,46 v-6 a16,16 0 0 1 32,0 v6 h-6 v-6 a10,10 0 0 0 -20,0 v6 z"
+          fill="var(--on-accent)"
+        />
+        <circle cx="54" cy="56" r="5" fill="var(--accent)" />
+      </g>
     </svg>
   );
 }

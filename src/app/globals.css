@@ -29,7 +29,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --background: #121311;
     --surface: #1b1c19;
     --surface-muted: #23241f;
@@ -51,6 +51,35 @@
     --chart-income: #d97706;
     --chart-track: #2d2e29;
   }
+}
+
+/* Manual theme override via data-theme on <html>. Keep in sync with the media block above. */
+:root[data-theme="dark"] {
+  --background: #121311;
+  --surface: #1b1c19;
+  --surface-muted: #23241f;
+  --border: #2d2e29;
+  --border-strong: #3f4039;
+  --foreground: #ecebe6;
+  --muted: #a5a197;
+  --faint: #6f6c63;
+  --accent: #2dd4bf;
+  --accent-strong: #5eead4;
+  --accent-soft: #143c38;
+  --on-accent: #0b1a18;
+  --income: #4ade80;
+  --expense: #f87171;
+  --warning: #fbbf24;
+  --danger: #f87171;
+  --ring: rgba(45, 212, 191, 0.4);
+  --chart-expense: #0d9488;
+  --chart-income: #d97706;
+  --chart-track: #2d2e29;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
 }
 
 @theme inline {

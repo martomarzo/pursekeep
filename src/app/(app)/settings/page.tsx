@@ -1,5 +1,6 @@
 import { requireUser } from "@/lib/session";
 import { PersonalSettingsForm } from "@/components/personal-settings-form";
+import { ThemePicker } from "@/components/theme-picker";
 import { ButtonLink, Card, CardTitle, PageHeader } from "@/components/ui";
 
 export default async function SettingsPage() {
@@ -12,6 +13,12 @@ export default async function SettingsPage() {
       <Card className="flex flex-col gap-4">
         <CardTitle>Personal ledger</CardTitle>
         <PersonalSettingsForm baseCurrency={baseCurrency} />
+      </Card>
+
+      <Card className="flex flex-col gap-3">
+        <CardTitle>Appearance</CardTitle>
+        <ThemePicker />
+        <p className="text-xs text-muted">System follows your phone or computer setting.</p>
       </Card>
 
       <Card className="flex flex-col gap-2">

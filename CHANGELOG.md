@@ -6,6 +6,12 @@ what you can do or how your data is organised.
 
 ## 2026-09-22
 
+### Look & feel
+- One icon everywhere: the purse mark used by the Android app is now the web
+  app's icon, favicon and home-screen icon too.
+- **Appearance** in Settings: choose System, Light or Dark. On the Android
+  app the theme now follows the phone's dark-mode setting as well.
+
 ### Sign-up and safety on a public URL
 - Signing up from a household invite link creates your account and joins you
   to that household in one step.
