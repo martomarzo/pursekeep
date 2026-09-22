@@ -1,6 +1,6 @@
 # PurseKeep Android companion — design (2026-09-22)
 
-Status: **approved design, not built.** Supersedes the phone-automation
+Status: **approved 2026-09-22; implementation plan at `docs/superpowers/plans/2026-09-22-pursekeep-android-companion.md`.** Deviation: the §9 route-level test is replaced by unit tests of the pure pieces (`parseClientVersion`, contract fixtures) because no local Postgres/Docker exists on the dev machine. Supersedes the phone-automation
 approach in `docs/wallet-android-setup.md` (MacroDroid) and the "Phase 1.7
 superseded" note in plan.md §6. Server-side wallet capture
 (`src/lib/wallet/`, `POST /api/wallet/capture`, migration 0003) stays as is
