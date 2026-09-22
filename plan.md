@@ -399,3 +399,11 @@ From the per-task and final reviews; none affects correctness of v0.1.0.
 - Gradle cosmetics: merge the two `android {}` blocks in `app/build.gradle.kts`; drop the unused `kotlin-android` alias.
 - Web: open the GitHub release link in a new tab; `pairingQrSvg` returns an unused `json`; minify/shrink the APK (28 MB) once R8 rules for kotlinx.serialization are added.
 - Real-device watch items: does Google Wallet post an amount-less notification that updates later (extra `unparsed` rows)? Does the ML Kit scanner module download over tailnet-only Wi-Fi?
+
+### Hosting: Render (decided 2026-09-22)
+Public hosting moves from the tailnet box to Render (web Starter + Postgres Basic-256mb, Frankfurt, `render.yaml`).
+Vercel was evaluated and rejected for this app: it would need a cron for FX, build-time migrations, serverless
+pooling and a third-party DB (Neon). Security pass done before exposure: invite-only registration, login throttling,
+security headers, health route. Cutover checklist lives in CLAUDE.md session status; after two weeks decommission
+the tailnet compose stack and the self-hosted runner. Later: Postgres logical backups off-platform, Cloudflare in
+front if login abuse ever shows up.

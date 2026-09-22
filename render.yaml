@@ -1,0 +1,50 @@
+# Render Blueprint for PurseKeep — apply once from the Render dashboard
+# (Blueprints → New Blueprint Instance → this repo). Creates the web service
+# and its Postgres, wires DATABASE_URL, generates AUTH_SECRET.
+#
+# After attaching the custom domain, set AUTH_URL=https://pursekeep.app on the
+# service (until then the app uses RENDER_EXTERNAL_URL for the pairing QR).
+# The self-hosted Docker Compose path (docker/compose.yaml) is unaffected.
+
+services:
+  - type: web
+    name: pursekeep
+    runtime: docker
+    region: frankfurt
+    plan: starter
+    dockerfilePath: ./docker/Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    buildFilter:
+      ignoredPaths:
+        - android/**
+        - docs/**
+        - "*.md"
+        - .github/**
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: pursekeep-db
+          property: connectionString
+      - key: AUTH_SECRET
+        generateValue: true
+      - key: AUTH_TRUST_HOST
+        value: "true"
+      - key: REGISTRATION_MODE
+        value: invite
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+
+databases:
+  - name: pursekeep-db
+    databaseName: pursekeep
+    user: pursekeep
+    plan: basic-256mb
+    region: frankfurt
+    postgresMajorVersion: "16"
+    # Internal-only by default. Add your IP temporarily for the one-time
+    # restore of the tailnet dump, then remove it again.
+    ipAllowList: []

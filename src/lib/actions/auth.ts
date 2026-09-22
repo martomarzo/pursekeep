@@ -103,7 +103,9 @@ export async function login(
   }
 
   const rawCallbackUrl = String(formData.get("callbackUrl") ?? "");
-  const redirectTo = rawCallbackUrl.startsWith("/") && !rawCallbackUrl.startsWith("//") ? rawCallbackUrl : "/";
+  // Same-origin paths only: reject protocol-relative ("//") and backslash ("/\\") tricks.
+  const redirectTo =
+    rawCallbackUrl.startsWith("/") && !/^\/[\/\\]/.test(rawCallbackUrl) ? rawCallbackUrl : "/";
 
   try {
     await signIn("credentials", {
