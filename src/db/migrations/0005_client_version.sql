@@ -1,0 +1,1 @@
+ALTER TABLE "wallet_devices" ADD COLUMN "client_version" text;

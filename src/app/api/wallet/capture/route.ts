@@ -14,6 +14,7 @@ import {
 import type { CategoryRule } from "@/lib/import/engine";
 import { listCategoryRules, usablePostingAccount } from "@/lib/queries";
 import { bookCapture } from "@/lib/wallet/book";
+import { parseClientVersion } from "@/lib/wallet/client-version";
 import {
   amountToMinor,
   captureHash,
@@ -121,7 +122,10 @@ export async function POST(req: Request) {
 
   await db
     .update(walletDevices)
-    .set({ lastSeenAt: new Date() })
+    .set({
+      lastSeenAt: new Date(),
+      clientVersion: parseClientVersion(req.headers.get("x-pursekeep-client")),
+    })
     .where(eq(walletDevices.id, device.id));
 
   if (inserted.length === 0) return Response.json({ duplicate: true }, { status: 200 });

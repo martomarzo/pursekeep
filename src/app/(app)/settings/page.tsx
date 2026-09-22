@@ -23,7 +23,7 @@ export default async function SettingsPage() {
             { href: "/accounts", label: "Accounts" },
             { href: "/import", label: "Import bank statements" },
             { href: "/households", label: "Households" },
-            { href: "/settings/devices", label: "Wallet devices (experimental)" },
+            { href: "/settings/devices", label: "Phone app & captured payments" },
           ].map((l) => (
             <li key={l.href} className="py-1">
               <ButtonLink href={l.href} variant="ghost" className="w-full !justify-between !px-2">

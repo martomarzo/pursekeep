@@ -372,6 +372,9 @@ export const walletDevices = pgTable("wallet_devices", {
     .defaultNow(),
   revokedAt: timestamp("revoked_at", { withTimezone: true }),
   lastSeenAt: timestamp("last_seen_at", { withTimezone: true }),
+  // e.g. "android/0.1.0+1" from the X-PurseKeep-Client header; null for
+  // automations/unknown clients.
+  clientVersion: text("client_version"),
 });
 
 export const walletCardMappings = pgTable(

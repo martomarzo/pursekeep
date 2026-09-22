@@ -16,6 +16,7 @@ import type { CategoryRule } from "@/lib/import/engine";
 import { listCategoryRules, usablePostingAccount } from "@/lib/queries";
 import { requireUser, requireUserId } from "@/lib/session";
 import { bookCapture } from "@/lib/wallet/book";
+import { pairingQrSvg } from "@/lib/wallet/pairing-qr";
 import { generateDeviceToken, hashDeviceToken } from "@/lib/wallet/tokens";
 import type { ActionResult } from "./auth";
 
@@ -24,6 +25,7 @@ export type CreateDeviceResult = {
   error?: string;
   token?: string;
   deviceName?: string;
+  qrSvg?: string;
 };
 
 /** Capture owned by this user (via its device), or null. */
@@ -53,9 +55,10 @@ export async function createWalletDevice(
     name,
     tokenHash: hashDeviceToken(token),
   });
+  const { svg } = await pairingQrSvg(token);
   revalidatePath("/settings/devices");
   // Plaintext token is returned exactly once and never stored.
-  return { ok: true, token, deviceName: name };
+  return { ok: true, token, deviceName: name, qrSvg: svg };
 }
 
 export async function revokeWalletDevice(formData: FormData): Promise<ActionResult> {

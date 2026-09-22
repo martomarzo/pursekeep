@@ -15,6 +15,7 @@ type Device = {
   createdAt: string;
   lastSeenAt: string | null;
   revoked: boolean;
+  clientVersion: string | null;
 };
 type Mapping = { id: string; cardKey: string; accountId: string; accountName: string };
 
@@ -47,6 +48,10 @@ export function WalletDevicesPanel({
     <div className="flex flex-col gap-8">
       <section className="flex flex-col gap-3">
         <CardTitle>Add device</CardTitle>
+        <p className="text-xs text-muted">
+          Install the PurseKeep Android app from the{" "}
+          <a className="underline" href="https://github.com/martomarzo/money-maker/releases/latest">latest release</a>, then create a device here and scan its QR code.
+        </p>
         <form action={formAction} className="flex flex-wrap items-center gap-2">
           <input
             name="name"
@@ -63,8 +68,18 @@ export function WalletDevicesPanel({
         {result?.ok && result.token && (
           <div className="rounded-xl border border-border bg-surface p-3 text-sm">
             <p className="font-medium">
-              Token for &ldquo;{result.deviceName}&rdquo; — copy it now, it won&apos;t be shown
-              again:
+              Pair &ldquo;{result.deviceName}&rdquo; now — this code is shown once:
+            </p>
+            {result.qrSvg && (
+              <div
+                className="mx-auto my-3 w-60 rounded bg-white p-2"
+                aria-label="Pairing QR code"
+                dangerouslySetInnerHTML={{ __html: result.qrSvg }}
+              />
+            )}
+            <p className="text-xs text-muted">
+              In the PurseKeep Android app tap <strong>Pair this phone → Scan QR code</strong>. Or
+              enter the token by hand:
             </p>
             <code className="mt-1 block break-all rounded bg-surface-muted p-2 text-xs">
               {result.token}
@@ -87,6 +102,7 @@ export function WalletDevicesPanel({
                 <span className="ml-2 text-xs text-faint">
                   added {d.createdAt}
                   {d.lastSeenAt ? ` · last seen ${d.lastSeenAt}` : " · never used"}
+                  {d.clientVersion ? ` · ${d.clientVersion}` : ""}
                 </span>
               </div>
               {d.revoked ? (
