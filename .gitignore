@@ -47,3 +47,13 @@ data/imports/
 
 # Python bytecode (extraction scripts)
 __pycache__/
+
+# Android companion (android/)
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/keystore.properties
+android/*.jks
+android/.kotlin/
+android/.idea/
