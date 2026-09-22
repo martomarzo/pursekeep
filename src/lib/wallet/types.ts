@@ -1,7 +1,8 @@
 // Zod contract for POST /api/wallet/capture. Two payload kinds:
-// android_notification = raw notification text forwarded by MacroDroid
-// (server parses it); ios_transaction = already-structured fields from the
-// iOS Shortcuts "Transaction" automation trigger.
+// android_notification = raw notification text forwarded by the PurseKeep
+// Android app (see docs/wallet-capture-contract.md) (server parses it);
+// ios_transaction = already-structured fields from the iOS Shortcuts
+// "Transaction" automation trigger.
 
 import { z } from "zod";
 
